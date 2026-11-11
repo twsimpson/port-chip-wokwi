@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-clang-x64",
+            "compilerArgs": [
+                "--target=wasm32-unknown-wasi",
+                "--sysroot",
+                "/opt/wasi-libc"
+            ]
+        }
+    ],
+    "version": 4
+}
