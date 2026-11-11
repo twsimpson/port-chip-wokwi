@@ -42,8 +42,7 @@ jobs:
         env:
           ZIP_VERSION: ${{ github.ref_name }}
       - name: Upload release
-        uses: actions/upload-artifact@v7
+        uses: softprops/action-gh-release@v3
         if: success()
         with:
-          path: chip.zip
-          name: chip.zip
+          files: chip.zip
