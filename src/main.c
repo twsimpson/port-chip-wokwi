@@ -42,6 +42,7 @@ void chip_init(void) {
   pin_watch(chip->sel[0], &sel_pin_watch_config);
   pin_watch(chip->sel[1], &sel_pin_watch_config);
   chip_sel_pin_change(chip, 0, 0);
+  puts("Online!");
 }
 
 static inline uint8_t bus_read(const pin_t* pins)
@@ -99,6 +100,7 @@ static inline void bus_watch_stop(const pin_t* pins)
 
 void chip_sel_pin_change(void *user_data, pin_t pin, uint32_t value)
 {
+  printf("chip_sel_pin_change(chip=%p, pin=%i, value=%u)\n", user_data, pin, value);
   chip_state_t* chip = (chip_state_t*)user_data;
   const pin_watch_config_t bus_pin_watch_config = {
     .user_data = user_data,
@@ -116,6 +118,7 @@ void chip_sel_pin_change(void *user_data, pin_t pin, uint32_t value)
       bus_mode_input(chip->port_p);
       bus_mode_output(chip->port_b, bus_read(chip->port_p));
       bus_watch(chip->port_p, &bus_pin_watch_config);
+      puts("P -> B");
     }
     else
     {
@@ -126,6 +129,7 @@ void chip_sel_pin_change(void *user_data, pin_t pin, uint32_t value)
       bus_mode_input(chip->port_b);
       bus_mode_output(chip->port_p, bus_read(chip->port_b));
       bus_watch(chip->port_b, &bus_pin_watch_config);
+      puts("B -> P");
     }
   }
   else if (pin_read(chip->sel[1]) != LOW)
@@ -136,6 +140,7 @@ void chip_sel_pin_change(void *user_data, pin_t pin, uint32_t value)
     bus_mode_input(chip->port_p);
     bus_mode_output(chip->port_a, bus_read(chip->port_p));
     bus_watch(chip->port_p, &bus_pin_watch_config);
+    puts("P -> A");
   }
   else
   {
@@ -146,6 +151,7 @@ void chip_sel_pin_change(void *user_data, pin_t pin, uint32_t value)
     bus_mode_input(chip->port_b);
     bus_mode_output(chip->port_p, bus_read(chip->port_a));
     bus_watch(chip->port_a, &bus_pin_watch_config);
+    puts("A -> P");
   }
 }
 
