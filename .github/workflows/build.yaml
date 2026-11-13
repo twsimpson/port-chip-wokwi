@@ -43,8 +43,7 @@ jobs:
         env:
           ZIP_VERSION: ${{ github.ref_name }}
       - name: Upload release
-        uses: ncipollo/release-action@v1
+        uses: softprops/action-gh-release@v3
+        if: success()
         with:
-          artifacts: chip.zip
-          token: ${{ secrets.GITHUB_TOKEN }}
-          generateReleaseNotes: true
+          files: chip.zip
